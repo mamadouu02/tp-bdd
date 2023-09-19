@@ -54,3 +54,43 @@ WHERE
     AND CATH = 2
     AND TYPES = 'montagne'
     AND PRIX < 50;
+
+-- R6
+SELECT
+    DISTINCT NOMCL
+FROM
+    GUESTS G, RESORTS R, HOTELS H, ROOMS RM, BOOKINGS B
+WHERE
+    G.NCL = B.NCL
+    AND B.NS = R.NS
+    AND B.NH = H.NH
+    AND H.NS = R.NS
+    AND B.NCH = RM.NCH
+    AND RM.NS = R.NS
+    AND RM.NH = H.NH
+    AND TYPES = 'mer'
+    AND TYPCH LIKE 'D%';
+
+-- R7
+SELECT
+    DISTINCT NOMCL
+FROM
+    GUESTS G, HOTELS H, BOOKINGS B
+WHERE
+    G.NCL = B.NCL
+    AND B.NH = H.NH
+    AND ADRCL = ADRH;
+
+-- R8
+SELECT
+    NS, NH
+FROM
+    HOTELS
+WHERE
+    CATH = 4 MINUS
+    SELECT
+        NS, NH
+    FROM
+        ROOMS
+    WHERE
+        TYPCH <> 'SDB';

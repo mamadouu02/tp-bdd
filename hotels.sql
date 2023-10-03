@@ -1,96 +1,118 @@
 -- Tables
-SELECT * FROM RESORTS;
-SELECT * FROM HOTELS;
-SELECT * FROM ROOMS;
-SELECT * FROM GUESTS;
-SELECT * FROM BOOKINGS;
+SELECT * FROM resorts;
+SELECT * FROM hotels;
+SELECT * FROM rooms;
+SELECT * FROM guests;
+SELECT * FROM bookings;
 
 -- R1
 SELECT
-    NS, NOMS, CAPCH
+    ns,
+    noms,
+    capch
 FROM
-    RESORTS
+    resorts
 WHERE
-    TYPES = 'montagne';
+    types = 'montagne';
 
 -- R2
 SELECT
-    NOMH, NH, ADRH, TELH, CATH
+    nomh,
+    nh,
+    adrh,
+    telh,
+    cath
 FROM
-    HOTELS H, RESORTS R
+    hotels  h,
+    resorts r
 WHERE
-    H.NS = R.NS
-    AND TYPES = 'mer';
+    h.ns = r.ns
+    AND types = 'mer';
 
 -- R3
 SELECT
-    DISTINCT NOMS
+    DISTINCT noms
 FROM
-    RESORTS R, HOTELS H
+    resorts r,
+    hotels  h
 WHERE
-    R.NS = H.NS
-    AND TYPES = 'mer'
-    AND CATH = 4;
+    r.ns = h.ns
+    AND types = 'mer'
+    AND cath = 4;
 
 -- R4
 SELECT
-    DISTINCT NOMCL, ADRCL
+    DISTINCT nomcl,
+    adrcl
 FROM
-    GUESTS G, BOOKINGS B, RESORTS R
+    guests   g,
+    bookings b,
+    resorts  r
 WHERE
-    G.NCL = B.NCL
-    AND B.NS = R.NS
-    AND TYPES = 'montagne';
+    g.ncl = b.ncl
+    AND b.ns = r.ns
+    AND types = 'montagne';
 
 -- R5
 SELECT
-    NCH, H.NH
+    nch,
+    h.nh
 FROM
-    ROOMS RM, HOTELS H, RESORTS R
+    rooms   rm,
+    hotels  h,
+    resorts r
 WHERE
-    RM.NH = H.NH
-    AND RM.NS = R.NS
-    AND H.NS = R.NS
-    AND CATH = 2
-    AND TYPES = 'montagne'
-    AND PRIX < 50;
+    rm.nh = h.nh
+    AND rm.ns = r.ns
+    AND h.ns = r.ns
+    AND cath = 2
+    AND types = 'montagne'
+    AND prix < 50;
 
 -- R6
 SELECT
-    DISTINCT NOMCL
+    DISTINCT nomcl
 FROM
-    GUESTS G, RESORTS R, HOTELS H, ROOMS RM, BOOKINGS B
+    guests   g,
+    resorts  r,
+    hotels   h,
+    rooms    rm,
+    bookings b
 WHERE
-    G.NCL = B.NCL
-    AND B.NS = R.NS
-    AND B.NH = H.NH
-    AND H.NS = R.NS
-    AND B.NCH = RM.NCH
-    AND RM.NS = R.NS
-    AND RM.NH = H.NH
-    AND TYPES = 'mer'
-    AND TYPCH LIKE 'D%';
+    g.ncl = b.ncl
+    AND b.ns = r.ns
+    AND b.nh = h.nh
+    AND h.ns = r.ns
+    AND b.nch = rm.nch
+    AND rm.ns = r.ns
+    AND rm.nh = h.nh
+    AND types = 'mer'
+    AND typch LIKE 'D%';
 
 -- R7
 SELECT
-    DISTINCT NOMCL
+    DISTINCT nomcl
 FROM
-    GUESTS G, HOTELS H, BOOKINGS B
+    guests   g,
+    hotels   h,
+    bookings b
 WHERE
-    G.NCL = B.NCL
-    AND B.NH = H.NH
-    AND ADRCL = ADRH;
+    g.ncl = b.ncl
+    AND b.nh = h.nh
+    AND adrcl = adrh;
 
 -- R8
 SELECT
-    NS, NH
+    ns,
+    nh
 FROM
-    HOTELS
+    hotels
 WHERE
-    CATH = 4 MINUS
+    cath = 4 MINUS
     SELECT
-        NS, NH
+        ns,
+        nh
     FROM
-        ROOMS
+        rooms
     WHERE
-        TYPCH <> 'SDB';
+        typch <> 'SDB';

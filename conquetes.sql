@@ -59,9 +59,17 @@ CREATE TABLE Planete (
     compMilieu VARCHAR(30) NOT NULL CHECK (compMilieu IN ('acide', 'neutre', 'basique')),
     vitLib NUMBER NOT NULL CHECK (vitLib > 0),
     statut VARCHAR(30) NOT NULL CHECK (statut IN ('non exploree', 'reconnue', 'integree')),
-    PRIMARY KEY (code Galaxie, codePlanete)
+    PRIMARY KEY (codeGalaxie, codePlanete)
 );
 
 CREATE TABLE TypeMission (
     typeMission VARCHAR(30) NOT NULL CHECK (typeMission IN ('transport', 'combat', 'pillage', 'interception')) PRIMARY KEY
+);
+
+CREATE TABLE EngEquipages (
+    codeMission INTEGER NOT NULL REFERENCES Mission(codeMission),
+    codeNavire INTEGER NOT NULL REFERENCES NavireCombat(codeNavire),
+    codeEquipage INTEGER NOT NULL REFERENCES Equipage(codeEquipage),
+    PRIMARY KEY (codeMission, codeNavire),
+    UNIQUE (codeMission, codeEquipage)
 );

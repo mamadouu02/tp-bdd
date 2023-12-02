@@ -1,7 +1,7 @@
 DROP TABLE comptes;
 
-CREATE TABLE comptes(
-    nc int,
+CREATE TABLE comptes (
+    nc INT,
     nom VARCHAR(30),
     solde FLOAT CHECK (solde >= 0)
 );
@@ -10,10 +10,10 @@ CREATE TABLE comptes(
 
 -- Exercice 1
 
-INSERT INTO comptes(nc, nom, solde) VALUES(1, 'Paul', 100);
-INSERT INTO comptes(nc, nom, solde) VALUES(2, 'Paul', 200);
+INSERT INTO comptes (nc, nom, solde) VALUES (1, 'Paul', 100);
+INSERT INTO comptes (nc, nom, solde) VALUES (2, 'Paul', 200);
 
-SELECT nom, sum(solde) FROM comptes GROUP BY nom;
+SELECT nom, SUM(solde) FROM comptes GROUP BY nom;
 
 ROLLBACK;
 
@@ -21,13 +21,13 @@ SELECT nom, SUM(solde) FROM comptes GROUP BY nom;
 
 -- Exercice 2
 
-INSERT INTO comptes(nc, nom, solde) VALUES(3, 'Pierre', 300);
-INSERT INTO comptes(nc, nom, solde) VALUES(4, 'Pierre', 400);
+INSERT INTO comptes (nc, nom, solde) VALUES (3, 'Pierre', 300);
+INSERT INTO comptes (nc, nom, solde) VALUES (4, 'Pierre', 400);
 
 COMMIT;
 
-INSERT INTO comptes(nc, nom, solde) VALUES(1, 'Paul', 100);
-INSERT INTO comptes(nc, nom, solde) VALUES(2, 'Paul', 200);
+INSERT INTO comptes (nc, nom, solde) VALUES (1, 'Paul', 100);
+INSERT INTO comptes (nc, nom, solde) VALUES (2, 'Paul', 200);
 
 SELECT nom, SUM(solde) FROM comptes GROUP BY nom;
 
@@ -39,8 +39,8 @@ SELECT nom, SUM(solde) FROM comptes GROUP BY nom;
 
 SET AUTOCOMMIT ON;
 
-INSERT INTO comptes(nc, nom, solde) VALUES(5, 'Jacques', 500);
-INSERT INTO comptes(nc, nom, solde) VALUES(6, 'Jacques', 600);
+INSERT INTO comptes (nc, nom, solde) VALUES (5, 'Jacques', 500);
+INSERT INTO comptes (nc, nom, solde) VALUES (6, 'Jacques', 600);
 
 SELECT nom, SUM(solde) FROM comptes GROUP BY nom;
 
@@ -52,13 +52,13 @@ SET AUTOCOMMIT OFF;
 
 -- Exercice 4
 
-INSERT INTO comptes(nc, nom, solde) VALUES(7, 'Jean', 700);
-INSERT INTO comptes(nc, nom, solde) VALUES(8, 'Jean', 800);
+INSERT INTO comptes (nc, nom, solde) VALUES (7, 'Jean', 700);
+INSERT INTO comptes (nc, nom, solde) VALUES (8, 'Jean', 800);
 
 SAVEPOINT deuxinserts;
 
-INSERT INTO comptes(nc, nom, solde) VALUES(9, 'Jean', 900);
-INSERT INTO comptes(nc, nom, solde) VALUES(10, 'Jean', 1000);
+INSERT INTO comptes (nc, nom, solde) VALUES (9, 'Jean', 900);
+INSERT INTO comptes (nc, nom, solde) VALUES (10, 'Jean', 1000);
 
 SELECT nom, SUM(solde) FROM comptes WHERE nom = 'Jean' GROUP BY nom;
 
@@ -74,9 +74,9 @@ SELECT nom, SUM(solde) FROM comptes WHERE nom = 'Jean' GROUP BY nom;
 
 -- Exercice 1
 
-INSERT INTO comptes(nc, nom, solde) VALUES(11, 'Claude', 100);
+INSERT INTO comptes (nc, nom, solde) VALUES (11, 'Claude', 100);
 
-INSERT INTO comptes(nc, nom, solde) VALUES(12, 'Henri', 200);
+INSERT INTO comptes (nc, nom, solde) VALUES (12, 'Henri', 200);
 
 UPDATE comptes SET solde = solde + 50 WHERE nc = 12;
 
@@ -94,7 +94,7 @@ SELECT * FROM comptes;
 
 -- Exercice 1
 
-DELETE FROM comptes WHERE nom='Jacques';
+DELETE FROM comptes WHERE nom = 'Jacques';
 
 COMMIT;
 
@@ -104,7 +104,7 @@ SELECT nom, SUM(solde) FROM comptes GROUP BY nom;
 
 COMMIT;
 
-INSERT INTO comptes(nc, nom, solde) VALUES(14, 'Paul', 1000);
+INSERT INTO comptes (nc, nom, solde) VALUES (14, 'Paul', 1000);
 
 COMMIT;
 
@@ -132,7 +132,7 @@ COMMIT;
 
 SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 
-INSERT INTO comptes(nc, nom, solde) VALUES(13, 'Paul', 500);
+INSERT INTO comptes (nc, nom, solde) VALUES (13, 'Paul', 500);
 
 COMMIT;
 
